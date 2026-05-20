@@ -8,8 +8,7 @@ skills i actually use with [claude code](https://claude.com/claude-code). nothin
 |---|---|
 | [`babysit-pr/`](./babysit-pr) | takes a PR all the way to done — CI green, every comment resolved, `/review` run, and a code-quality pass (DRY / YAGNI / blast radius / does this even belong here). pings me when it's actually finished or genuinely stuck. |
 | [`junior-mode/`](./junior-mode) | pair-programming mode. claude still does the work but narrates the *why* and names the concepts as it goes, so i learn while shipping. also drops a 4.5-min status ping so i don't lose track during long runs. |
-| [`drive-pr/`](./drive-pr) | walks me through a PR like a patient senior would — what it does, the shape of the change, stuff worth knowing, and just as important: stuff i can safely ignore. for when i want to *understand* a PR, not finish one. |
-| [`junior-review/`](./junior-review) | produces post-ready review comments (severity-tagged, voice-ready to paste) with a *why-it-matters* line per comment so i learn from reviewing. pairs with `drive-pr` (run that first to understand) and `babysit-pr` (for shipping my own). |
+| [`understand-pr/`](./understand-pr) | walks me through a PR (someone else's *or* my own when i've made a pile of changes) — what it does, the shape, architectural shifts, idioms in play, what's worth knowing vs. what to ignore. ends by offering to turn the walkthrough into post-ready review comments if i want them. |
 
 ## stuff i also use
 
