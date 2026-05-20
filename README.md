@@ -1,102 +1,54 @@
 # skills-aryan
 
-A personal collection of [Claude Code](https://claude.com/claude-code) skills, shared publicly so anyone can use them.
+skills i actually use with [claude code](https://claude.com/claude-code). nothing fancy. each folder is one skill with a `SKILL.md` inside.
 
-Each subdirectory is a self-contained skill with its own `SKILL.md`. Install one at a time or all at once, globally (every project) or per-project.
+## what's in here
 
-## Skills
-
-| Skill | What it does |
+| skill | what it does |
 |---|---|
-| [`babysit-pr/`](./babysit-pr) | Takes a PR all the way to *done*: CI green, every review/CodeRabbit comment resolved, `/review` run, and a code-quality pass (DRY / YAGNI / blast radius / architecture fit). Triages failures, applies low-risk fixes, and surfaces only terminal state or genuine blockers. |
-| [`junior-mode/`](./junior-mode) | Pair-programming mode for junior engineers. Claude does the work but narrates the WHY at each step, names the concepts in play, and asks questions at real decision points so you learn while shipping. Also sets up a 4.5-minute background ping so you don't lose track during long-running work. |
+| [`babysit-pr/`](./babysit-pr) | takes a PR all the way to done — CI green, every comment resolved, `/review` run, and a code-quality pass (DRY / YAGNI / blast radius / does this even belong here). pings me when it's actually finished or genuinely stuck. |
+| [`junior-mode/`](./junior-mode) | pair-programming mode. claude still does the work but narrates the *why* and names the concepts as it goes, so i learn while shipping. also drops a 4.5-min status ping so i don't lose track during long runs. |
 
-## Install
+## stuff i also use
 
-Claude Code loads skills from two locations:
+- [rogeriochaves/skills](https://github.com/rogeriochaves/skills) — rogerio's collection. `browser-qa` is the one i lean on constantly.
 
-- **Global** (available in every project): `~/.claude/skills/<skill-name>/SKILL.md`
-- **Project-local** (only inside one repo): `<repo>/.claude/skills/<skill-name>/SKILL.md`
+## install
 
-### One-liner (recommended)
+one liner:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/Aryansharma28/skills-aryan/main/install.sh | bash
 ```
 
-This clones the repo into `~/.local/share/skills-aryan` and symlinks every skill into `~/.claude/skills/`. Re-run anytime to update (it does a fast `git pull` under the hood).
+clones to `~/.local/share/skills-aryan` and symlinks each skill into `~/.claude/skills/`. re-run to update.
 
-Variants:
+variants:
 
 ```bash
-# install only one skill
+# just one skill
 curl -fsSL https://raw.githubusercontent.com/Aryansharma28/skills-aryan/main/install.sh | bash -s -- babysit-pr
 
-# install into the current repo only (project-local)
+# project-local instead of global
 curl -fsSL https://raw.githubusercontent.com/Aryansharma28/skills-aryan/main/install.sh | LOCAL=1 bash
 ```
 
-### Manual — clone & symlink
-
-This way `git pull` inside one folder updates the skills on every machine:
+if you'd rather do it by hand:
 
 ```bash
 git clone https://github.com/Aryansharma28/skills-aryan.git ~/code/skills-aryan
 mkdir -p ~/.claude/skills
-for d in ~/code/skills-aryan/*/; do
-  name=$(basename "$d")
-  [ "$name" = ".git" ] && continue
-  ln -sfn "$d" ~/.claude/skills/"$name"
-done
+for d in ~/code/skills-aryan/*/; do ln -sfn "$d" ~/.claude/skills/"$(basename "$d")"; done
 ```
 
-To update later:
+restart claude code after installing — skills load at session start.
 
-```bash
-cd ~/code/skills-aryan && git pull
-```
+## new laptop
 
-### Copy a single skill
+same one-liner. done.
 
-```bash
-mkdir -p ~/.claude/skills
-cp -r babysit-pr ~/.claude/skills/
-```
+## adding your own
 
-### Copy all skills
-
-```bash
-mkdir -p ~/.claude/skills
-cp -r */ ~/.claude/skills/
-```
-
-### Project-local install
-
-Replace `~/.claude/skills` with `.claude/skills` from your repo root. Useful when a skill should only apply inside one project.
-
-### Verify the install
-
-Inside any project, start Claude Code and run `/help` — installed skills are listed under the available-skills section. The slash form (`/babysit-pr`, `/junior-mode`) becomes invokable.
-
-## Installing on a second laptop
-
-Same steps. If you used the symlink approach, you only need to:
-
-```bash
-git clone https://github.com/Aryansharma28/skills-aryan.git ~/code/skills-aryan
-```
-
-…and run the symlink loop above. After that, every `git pull` propagates skill changes everywhere.
-
-## Contributing your own
-
-1. Make a new directory: `mkdir my-skill && cd my-skill`
-2. Create `SKILL.md` with YAML frontmatter (`name`, `description`) and the prompt body.
-3. Add a row to the Skills table above.
-4. PR.
-
-The `description` is what Claude uses to decide when to apply the skill — be specific about the trigger phrases.
-
-## License
+new folder, drop a `SKILL.md` with `name` and `description` in the frontmatter, write the prompt. the `description` is what claude reads to decide when to fire the skill, so be specific about trigger phrases.
 
 MIT — see [LICENSE](./LICENSE).
