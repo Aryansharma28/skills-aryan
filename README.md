@@ -18,7 +18,25 @@ Claude Code loads skills from two locations:
 - **Global** (available in every project): `~/.claude/skills/<skill-name>/SKILL.md`
 - **Project-local** (only inside one repo): `<repo>/.claude/skills/<skill-name>/SKILL.md`
 
-### Quickest path — clone & symlink (recommended)
+### One-liner (recommended)
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Aryansharma28/skills-aryan/main/install.sh | bash
+```
+
+This clones the repo into `~/.local/share/skills-aryan` and symlinks every skill into `~/.claude/skills/`. Re-run anytime to update (it does a fast `git pull` under the hood).
+
+Variants:
+
+```bash
+# install only one skill
+curl -fsSL https://raw.githubusercontent.com/Aryansharma28/skills-aryan/main/install.sh | bash -s -- babysit-pr
+
+# install into the current repo only (project-local)
+curl -fsSL https://raw.githubusercontent.com/Aryansharma28/skills-aryan/main/install.sh | LOCAL=1 bash
+```
+
+### Manual — clone & symlink
 
 This way `git pull` inside one folder updates the skills on every machine:
 
