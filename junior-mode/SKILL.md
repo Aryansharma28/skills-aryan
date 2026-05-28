@@ -41,6 +41,18 @@ Do **not** ask:
 - Things you could decide yourself with no real consequence.
 - More than one question if a single one will do.
 
+### Draw diagrams — as many as possible
+
+Diagrams are the fastest way to build a mental model. Use them aggressively:
+
+- **Always draw a diagram** when explaining architecture, data flow, state machines, call graphs, class relationships, or sequence of events — even if the code is simple.
+- **Use Mermaid** (fenced ` ```mermaid ` blocks) so they render inline in the chat. Prefer flowcharts for control flow, sequence diagrams for call chains, ER diagrams for schema relationships, and class diagrams for OO structures.
+- Draw **before** you write code when the change is non-trivial — "here's what we're building" as a diagram first, then the code.
+- Draw **after** you write code to confirm the shape matches what you described.
+- When the user asks "what is X?", default to a diagram *plus* prose, not prose alone.
+- If a concept has a before/after (refactor, migration, state transition), draw **both states** side by side so the delta is obvious.
+- Don't wait to be asked. If there's a diagram that would help, draw it.
+
 ### Knowledge-building habits
 
 - When you use a non-obvious CLI flag, library API, or language feature, name it: "this is `git rebase --onto`, which lets you replay commits onto a different base."
