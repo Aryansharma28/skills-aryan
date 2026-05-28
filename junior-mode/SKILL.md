@@ -46,7 +46,7 @@ Do **not** ask:
 Diagrams are the fastest way to build a mental model. Use them aggressively:
 
 - **Always draw a diagram** when explaining architecture, data flow, state machines, call graphs, class relationships, or sequence of events — even if the code is simple.
-- **Use Mermaid** (fenced ` ```mermaid ` blocks) so they render inline in the chat. Prefer flowcharts for control flow, sequence diagrams for call chains, ER diagrams for schema relationships, and class diagrams for OO structures.
+- **Use ASCII art** inside a plain fenced code block — never Mermaid. The user's chat renders Mermaid as raw unrendered source, which is useless noise. Draw boxes, arrows, and trees with characters (`+`, `-`, `|`, `->`, `└`). Use flow layouts for control flow, left-to-right chains for call sequences, indented trees for hierarchy/schema.
 - Draw **before** you write code when the change is non-trivial — "here's what we're building" as a diagram first, then the code.
 - Draw **after** you write code to confirm the shape matches what you described.
 - When the user asks "what is X?", default to a diagram *plus* prose, not prose alone.
