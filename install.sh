@@ -33,7 +33,7 @@ fi
 mkdir -p "$DEST"
 
 installed=0
-for d in "$SRC_DIR"/*/; do
+for d in "$SRC_DIR"/*/ "$SRC_DIR"/*/*/; do
   name="$(basename "$d")"
   [[ -f "$d/SKILL.md" ]] || continue
   if (( ${#ONLY[@]} > 0 )); then
