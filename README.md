@@ -19,6 +19,8 @@ three skills touch PRs. quick decoder:
 - **i want to *gate* this PR** (deep review, blockers vs nits, posted as comments) → [`goated-review`](./goated-review)
 - **the PR is mine and i want to *land* it** → [`babysit-pr`](./babysit-pr)
 
+> note: `/review` and `/code-review` ship with claude code itself — nothing to install for those. `goated-review` is self-contained and doesn't call them; it just mentions them in its own comparison table so you know which tool fits which job.
+
 ## stuff i also use
 
 - [rogeriochaves/skills](https://github.com/rogeriochaves/skills) — rogerio's collection. `browser-qa` is the one i lean on constantly.
