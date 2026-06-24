@@ -7,6 +7,7 @@ skills i actually use with [claude code](https://claude.com/claude-code). nothin
 | skill | what it does |
 |---|---|
 | [`babysit-pr/`](./babysit-pr) | takes a PR all the way to done — CI green, every comment resolved, `/review` run, and a code-quality pass (DRY / YAGNI / blast radius / does this even belong here). pings me when it's actually finished or genuinely stuck. |
+| [`goated-review/`](./goated-review) | deep, bulletproof review for the PRs that actually matter — large refactors, mass deletions, dep/lockfile changes, anything coderabbit skipped. reads the room first (existing reviewers, CI, the description's own claims), buckets files by risk, grills every "every consumer migrated"-type claim, adversarially verifies each finding before posting, and ships blockers + non-blockers as inline comments. |
 | [`junior-mode/`](./junior-mode) | pair-programming mode. claude still does the work but narrates the *why* and names the concepts as it goes, so i learn while shipping. also drops a 4.5-min status ping so i don't lose track during long runs. |
 | [`understand-pr/`](./understand-pr) | walks me through a PR (someone else's *or* my own when i've made a pile of changes) — what it does, the shape, architectural shifts, idioms in play, what's worth knowing vs. what to ignore. ends by offering to turn the walkthrough into post-ready review comments if i want them. |
 
