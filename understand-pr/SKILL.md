@@ -1,6 +1,6 @@
 ---
 name: understand-pr
-description: Walk the user through a PR like a patient senior would — what it does, the shape of the change, architectural shifts, idioms in play, what's worth knowing vs. what to safely ignore. Works on any PR (someone else's *or* the user's own, when they've made a pile of changes and want to read them back). Ends by offering to turn the walkthrough into post-ready review comments. Use when the user says "/understand-pr", "explain this PR", "walk me through PR N", "review this PR", "help me understand my own changes", or hands you a PR for a tour rather than action.
+description: Walk the user through a PR like a patient senior would — what it does, the shape of the change, architectural shifts, idioms in play, what's worth knowing vs. what to safely ignore. Explains in plain language with real-world analogies and ASCII diagrams whenever 3+ pieces interact or a topology changes — dumbed down without being condescending. Works on any PR (someone else's *or* the user's own, when they've made a pile of changes and want to read them back). Ends by offering to turn the walkthrough into post-ready review comments. Use when the user says "/understand-pr", "explain this PR", "walk me through PR N", "review this PR", "help me understand my own changes", "dumb this down", "explain with diagrams", or hands you a PR for a tour rather than action.
 ---
 
 # understand-pr
@@ -13,6 +13,25 @@ This is the **inbound** PR skill (understanding + optional reviewing). The **out
 
 - PR number or URL — ask if missing.
 - Whose PR is it? Theirs, a teammate's, the user's own, a dependency bump, a bot. Changes how much architectural context to give and how to frame the "what to learn" section.
+
+## Diagrams — when and how
+
+Default to drawing, not just naming. Render a small ASCII diagram whenever any of these are true:
+
+- 3+ pieces interact (services, pods, files, functions, processes) and the reader needs to see who talks to whom.
+- The PR changes a *topology* or *sequence* — before/after states, a request path, an ordering of steps/hooks/events.
+- You catch yourself about to write "X calls Y which then triggers Z" in prose — that sentence is a diagram.
+
+Keep it small and boxy — this is a whiteboard sketch, not art:
+
+    [App pod] --RWO PVC--> [Disk]
+        ^                    ^
+        |                    |
+    [Worker pod] ------------+
+
+For before/after, stack two small diagrams with an arrow or "becomes" between them rather than cramming both states into one cluttered picture.
+
+Skip the diagram if the change is genuinely linear (A always leads to B, nothing branches, nothing shares state) — a diagram for a straight line just adds noise. Prose is fine there.
 
 ## Part 1 — the walkthrough (always)
 
@@ -28,7 +47,7 @@ The motivation. Link the bug / ticket / Slack thread / incident if visible. If y
 
 ### 3. The shape of the change
 
-Where in the codebase it lives, which layers/modules it touches, roughly how big it is (files / lines / blast radius). One paragraph. The user should be able to picture the change before reading code.
+Where in the codebase it lives, which layers/modules it touches, roughly how big it is (files / lines / blast radius). One paragraph. The user should be able to picture the change before reading code. If multiple pieces now interact, draw the map here (see Diagrams above) instead of describing it in prose.
 
 ### 4. Walk the diff — dumbed down
 
@@ -36,13 +55,16 @@ Pick the 3–6 most important hunks (not all of them). For each:
 
 - **what changed** in plain language
 - **why** that specific change
-- **the concept it rests on**, named — pattern, language feature, library API, framework convention. One line so they can look it up later.
+- **the concept it rests on**, named *and* explained. Naming it isn't enough — give a one-clause plain-English restatement right after the name (e.g. "pod affinity — a rule that pins a pod to run next to another pod"), and reach for a real-world analogy when the mechanism itself is non-obvious, not just the label. The reader should be able to explain the concept back to someone else, not just recognize the term.
+- **a diagram, if the hunk is about how pieces relate** rather than a single self-contained piece of logic (see Diagrams above). A relationship ("these three pods now have to agree on X") is almost always clearer drawn than narrated.
+
+One new concept per paragraph — if a hunk needs two unfamiliar concepts explained, that's two short paragraphs, not one dense one.
 
 Skip mechanical/boilerplate hunks unless they hide something important.
 
 ### 5. Architectural shifts
 
-What changed in *how the system is organized*, even subtly. Boxes-and-arrows level. Why the new shape is better (or worse) than the old. Skip this section if it's a pure bugfix with no structural impact.
+What changed in *how the system is organized*, even subtly. Draw it — an actual ASCII before/after diagram (see Diagrams above), not just the phrase "boxes and arrows." Then say why the new shape is better (or worse) than the old. Skip this section if it's a pure bugfix with no structural impact.
 
 ### 6. ⭐ Stuff worth knowing about this PR
 
@@ -122,7 +144,14 @@ Same structure, slightly different framing:
 
 ## Tone
 
-Peer, not professor. Dumbing down is about *clarity*, not talking down. Assume the user is smart and busy.
+Peer, not professor. Dumbing down is about *clarity*, not talking down. Assume the user is smart and busy — they just haven't touched this specific corner of the system yet.
+
+Concretely, "dumbed down" means:
+
+- Every acronym and piece of jargon gets defined in the same clause it's first used — don't assume the term landed.
+- Reach for a real-world analogy when a mechanism is unfamiliar (a lock, a queue, a relay race, a shared kitchen) — pick whichever actually fits, don't force one.
+- Draw it (see Diagrams) before you narrate it, whenever 3+ pieces interact.
+- One new idea at a time. If you need a concept to explain a concept, explain the dependency first, in its own sentence.
 
 Avoid: "as you may know", "simply", "obviously", "just". Those are tells that you're either condescending or hiding complexity.
 
