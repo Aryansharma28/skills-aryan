@@ -1,0 +1,4 @@
+interface:
+  display_name: "Explain PR"
+  short_description: "Explain every PR change and post the walkthrough"
+  default_prompt: "Explain this pull request file by file, connect it to the product goal, and post the explanation as a PR comment."
